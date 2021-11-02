@@ -8,6 +8,7 @@ fastapi = {extras = ["all"], version = "*"}
 
 [scripts]
 start_dev "uvicorn app.main:app --reload"
+infra_up "bash -c 'docker-compose --file docker/test/docker-compose.yml --project-name fastapi-social-network up -d --force-recreate --build --remove-orphans'"
 
 [dev-packages]
 
