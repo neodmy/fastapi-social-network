@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS posts (
+	id SERIAL PRIMARY KEY NOT NULL,
+	title VARCHAR NOT NULL,
+	content VARCHAR NOT NULL,
+	published BOOLEAN NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
