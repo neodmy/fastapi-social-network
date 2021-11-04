@@ -8,8 +8,8 @@ fastapi = {extras = ["all"], version = "*"}
 psycopg2-binary = "*"
 
 [scripts]
-start_dev "uvicorn app.main:app --reload"
-infra_up "bash -c 'docker-compose --file docker/test/docker-compose.yml --project-name fastapi-social-network up -d --force-recreate --build --remove-orphans'"
+start_dev = "uvicorn app.main:app --reload"
+infra_up = "bash -c 'docker-compose --file docker/test/docker-compose.yml --project-name fastapi-social-network up -d --force-recreate --build --remove-orphans'"
 
 [dev-packages]
 
