@@ -10,5 +10,3 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=fastapi
-    volumes:
-      - ./sql/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
