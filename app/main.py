@@ -1,21 +1,15 @@
 from typing import Optional
 
 from fastapi import FastAPI, Response, status, HTTPException, Depends
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from .database import Base, engine, get_db
 from . import models
+from .schemas import PostBase, PostCreate
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
-
-
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool = True
 
 
 @app.get("/")
@@ -38,7 +32,7 @@ def get_post(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_post(post: Post, db: Session = Depends(get_db)):
+def create_post(post: PostCreate, db: Session = Depends(get_db)):
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
@@ -47,7 +41,7 @@ def create_post(post: Post, db: Session = Depends(get_db)):
 
 
 @app.put("/posts/{id}")
-def update_post(id: int, post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, post: PostCreate, db: Session = Depends(get_db)):
     post_query = db.query(models.Post).filter(models.Post.id == id)
     if post_query.first() is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} was not found")
